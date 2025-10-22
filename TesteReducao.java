@@ -1,6 +1,6 @@
 public class TesteReducao {
     public static void main(String[] args) {
-        PilhaRubro pilhas = new PilhaRubro(60);
+        PilhaRubro pilhas = new PilhaRubro(20);
         System.out.println("Capacidade Inicial: " + pilhas.getCapacidade());
 
         
@@ -12,9 +12,6 @@ public class TesteReducao {
         pilhas.pushPreto("preto3");
         pilhas.pushPreto("preto4");
         pilhas.pushPreto("preto5");
-        pilhas.pushVermelho("vermelho1");
-        pilhas.pushVermelho("vermelho2");
-        pilhas.pushVermelho("vermelho3");
         System.out.println("Itens na Pilha 1: " + pilhas.sizeVermelho());
         System.out.println("Itens na Pilha 2: " + pilhas.sizePreto());
         System.out.println("Total de itens: " + (pilhas.sizeVermelho() + pilhas.sizePreto()));
@@ -26,7 +23,7 @@ public class TesteReducao {
         System.out.println("\n--- Forçando a redução ---");
         System.out.println("Removendo um item da Pilha 1...");
         pilhas.popVermelho(); 
-        pilhas.popVermelho();
+        
         
        
         System.out.println("\nCapacidade Final: " + pilhas.getCapacidade());

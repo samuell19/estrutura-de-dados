@@ -10,8 +10,8 @@ public class Filall {
         }
     }
 
-    private Node head;
-    Node tail=null;
+    public Node head;
+    public Node tail=null;
     int size;
 
     public void enqueue(int data){
@@ -29,11 +29,26 @@ public class Filall {
         size++;
         }
 
+    public void enqueue_behind(int data){ //o fura fila
+        Node newNode= new Node(data);
+        if (head==null){
+            head=tail=newNode;
+            head.prev=null;
+            head.next=null;
+        }else{
+            head.prev=newNode; //o meu head.prev que antes era null, agora vai apontar pro novo nó
+            newNode.next=head; //meu novo nó.next vai apontar para a head atual
+            head=newNode;//atualizo minha head que vai ser o novo no
+            newNode.prev=null;//meu prev da head vai ser null
+        }
+        size++;
+    }
+
     public Object dequeue(){
         if (head == null) {
             return null;
         }
-        Node newStart = head.next;
+        Node newStart = head.next; //vacilei aqui, se a lista só tiver um elemento da b.o
         head.next = newStart.next;
         head = newStart;
         head.prev=null;
@@ -41,6 +56,8 @@ public class Filall {
 
         return newStart.data;
     }
+
+    
         public void display() {  
         Node current = head;  
         if(head == null) {  
@@ -62,12 +79,13 @@ public class Filall {
 
         list.enqueue(9);
         list.enqueue(5);
-        list.enqueue(3);
-        list.enqueue(4);
-        list.dequeue();
+        list.enqueue_behind(7);
+
+        
         System.out.println(list.tail.data);
         System.out.println(list.head.data);
         System.out.println(list.head.next.data);
+        System.out.println(list.head.data);
         System.out.println("Tamanho da fila: " + list.size);
         
         list.display();
