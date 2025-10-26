@@ -34,5 +34,8 @@ public class TesteFilall {
         fila.display();
         System.out.println("Tamanho: " + fila.size + "\n");
         
+        Object removido3= fila.dequeue_right();
+        System.out.println("removendo");
+        fila.display();
     }
 }

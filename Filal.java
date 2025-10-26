@@ -42,29 +42,47 @@ public class Filal {
         if (head == null) {
             return null;
         }
-        Node newStart = head.next;
-        head.next = newStart.next;
-        head = newStart;
+        
+        if (head == tail) {
+            Object data = head.data;
+            head = null;
+            tail = null;
+            size--;
+            return data;
+        }
+        Object data = head.data;
+        head = head.next;
         size--;
 
-
-        return newStart.data;
+        return data;
     }
 
     public Object dequeue_right(){
-        if (head == null) {
-            return null;
-        }
-        Node start = head;
-        //percorrer até o penúltimo nó
-        while (start.next != tail) {
-            start = start.next;
-        }
-        Object data = tail.data;
-        tail = start;
+    if (head == null) {
+        return null;
+    }
+    
+    if (head == tail) {
+        Object data = head.data;
+        head = null;
+        tail = null;
         size--;
         return data;
     }
+    
+    Object data = tail.data;  
+    Node current = head;
+    
+    while (current.next != tail) {
+        current = current.next;
+    }
+    
+    current.next = null;  
+    tail = current;
+    size--;
+    
+    return data;
+}
 
     
         public void display() {  
@@ -90,14 +108,13 @@ public class Filal {
         list.enqueue(5);
         list.enqueue(3);
         list.enqueue(4);
-        list.enqueue_behind(423);
-        list.dequeue();
-        list.dequeue_right();
-        System.out.println(list.tail.data);
-        System.out.println(list.head.data);
-        System.out.println(list.head.next.data);
+        
+        list.display();
+        
+       
+        Object removido = list.dequeue();
+        System.out.println("Elemento removido da esquerda: " + removido);
         System.out.println("Tamanho da fila: " + list.size);
-        System.out.println(list.head.data);
         System.out.println("a cauda eh:" + list.tail.data);
         
         list.display();

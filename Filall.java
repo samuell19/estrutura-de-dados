@@ -11,7 +11,7 @@ public class Filall {
     }
 
     public Node head;
-    public Node tail=null;
+    public Node tail;
     int size;
 
     public void enqueue(int data){
@@ -48,14 +48,39 @@ public class Filall {
         if (head == null) {
             return null;
         }
-        Node newStart = head.next; //vacilei aqui, se a lista só tiver um elemento da b.o
-        head.next = newStart.next;
-        head = newStart;
-        head.prev=null;
+        if (head == tail) {
+            Object data = head.data;
+            head = null;
+            tail = null;
+            size--;
+            return data;
+        }
+        Object data = head.data;
+        head = head.next;
+        head.prev = null;
         size--;
 
-        return newStart.data;
+        return data;
     }
+    public Object dequeue_right(){
+    if(head == null){
+        return null;
+    }
+    
+    if (head == tail) {
+        Object data = tail.data;
+        head = null;
+        tail = null;
+        size--;
+        return data;
+    }
+    Object data = tail.data;
+    tail = tail.prev; 
+    tail.next = null;      
+    size--;
+
+    return data;
+}
 
     
         public void display() {  
@@ -75,19 +100,20 @@ public class Filall {
     public static void main(String[] args) {
         Filall list = new Filall();
           
-        list.display();
+        
 
         list.enqueue(9);
         list.enqueue(5);
-        list.enqueue_behind(7);
+        list.enqueue_behind(3);
+        list.display();
+        list.dequeue();
 
         
-        System.out.println(list.tail.data);
-        System.out.println(list.head.data);
-        System.out.println(list.head.next.data);
-        System.out.println(list.head.data);
+        
         System.out.println("Tamanho da fila: " + list.size);
         
+        list.display();
+        list.dequeue_right();
         list.display();
     }
     }
