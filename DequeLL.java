@@ -1,53 +1,46 @@
-public class Filall {
+public class DequeLL {
     class Node{
         int data;
-        Node next, prev;
+        Node next;
 
         public Node(int data){
             this.data=data;
             this.next=null;
-            this.prev=null;
         }
     }
 
-    public Node head;
-    public Node tail;
+    Node head;
+    Node tail;
     int size;
 
-    public void enqueue(int data){
+    public void enqueue(int data){ //O(1)
         Node newNode= new Node(data);
         if (head==null){
             head=tail=newNode;
-                head.prev=null;
-                tail.next=null;
             }else{
-                tail.next=newNode; //o next do antigo tail agora eh o newNode, ou seja vou apontar o next do antigo tail para o newNode
-                newNode.prev=tail; //o prev do newNode eh o antigo tail, pq o newNode ta sendo adicionado depois do antigo tail
-                tail=newNode; //o tail eh o ultimo elemento, por isso ele vira o newNode
-                tail.next=null;
+                tail.next=newNode;
+                tail=newNode; 
+                
             }
         size++;
         }
 
-    public void enqueue_behind(int data){ //o fura fila
-        Node newNode= new Node(data);
+    public void enqueue_behind(int data){ //O(1)
+        Node newNode= new Node (data);
         if (head==null){
             head=tail=newNode;
-            head.prev=null;
-            head.next=null;
-        }else{
-            head.prev=newNode; //o meu head.prev que antes era null, agora vai apontar pro novo nó
-            newNode.next=head; //meu novo nó.next vai apontar para a head atual
-            head=newNode;//atualizo minha head que vai ser o novo no
-            newNode.prev=null;//meu prev da head vai ser null
+            }else{
+                newNode.next=head; 
+                head=newNode; 
         }
         size++;
     }
 
-    public Object dequeue(){
+    public Object dequeue(){ //O(1)
         if (head == null) {
             return null;
         }
+        
         if (head == tail) {
             Object data = head.data;
             head = null;
@@ -57,28 +50,35 @@ public class Filall {
         }
         Object data = head.data;
         head = head.next;
-        head.prev = null;
         size--;
 
         return data;
     }
-    public Object dequeue_right(){
-    if(head == null){
+
+    public Object dequeue_right(){ //O(n)
+    if (head == null) {
         return null;
     }
     
     if (head == tail) {
-        Object data = tail.data;
+        Object data = head.data;
         head = null;
         tail = null;
         size--;
         return data;
     }
-    Object data = tail.data;
-    tail = tail.prev; 
-    tail.next = null;      
+    
+    Object data = tail.data;  
+    Node current = head;
+    
+    while (current.next != tail) {
+        current = current.next;
+    }
+    
+    current.next = null;  
+    tail = current;
     size--;
-
+    
     return data;
 }
 
@@ -98,24 +98,25 @@ public class Filall {
          }
 
     public static void main(String[] args) {
-        Filall list = new Filall();
+        DequeLL list = new DequeLL();
           
+        list.display();
         
-
         list.enqueue(9);
         list.enqueue(5);
-        list.enqueue_behind(3);
+        list.enqueue(3);
+        list.enqueue(4);
+        list.enqueue_behind(8);
+        
         list.display();
-        list.dequeue();
-
         
-        
+       
+        Object removido = list.dequeue();
+        System.out.println("Elemento removido da esquerda: " + removido);
         System.out.println("Tamanho da fila: " + list.size);
-        
-        list.display();
+        System.out.println("a cauda eh:" + list.tail.data);
         list.dequeue_right();
         list.display();
     }
-    }
 
-
+}

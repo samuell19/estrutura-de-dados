@@ -1,8 +1,8 @@
-public class TesteFilal {
+public class TesteDequeLL {
     public static void main(String[] args) {
 
         
-        Filal fila = new Filal();
+        DequeLL fila = new DequeLL();
         
         
         // enqueue normal

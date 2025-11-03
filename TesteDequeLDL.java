@@ -1,7 +1,7 @@
-public class TesteFilall {
+public class TesteDequeLDL {
     public static void main(String[] args) {
         
-        Filall fila = new Filall();
+        DequeLDL fila = new DequeLDL();
         
         
         //teste enqueue

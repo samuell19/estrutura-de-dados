@@ -1,48 +1,47 @@
-public class Filal {
+public class DequeLDL {
     class Node{
         int data;
-        Node next;
+        Node next, prev;
 
         public Node(int data){
             this.data=data;
             this.next=null;
+            this.prev=null;
         }
     }
 
-    public Node head;
-    Node tail=null;
+    Node head;
+    Node tail;
     int size;
 
-    public void enqueue(int data){
+    public void enqueue(int data){ //O(1)
         Node newNode= new Node(data);
         if (head==null){
             head=tail=newNode;
-            tail.next=null;
             }else{
-                tail.next=newNode; //o next do antigo tail agora eh o newNode, ou seja vou apontar o next do antigo tail para o newNode
-                tail=newNode; //o tail eh o ultimo elemento, por isso ele vira o newNode
-                
+                tail.next=newNode; 
+                newNode.prev=tail; 
+                tail=newNode; 
             }
         size++;
         }
 
-    public void enqueue_behind(int data){
-        Node newNode= new Node (data);
+    public void enqueue_behind(int data){ //O(1)
+        Node newNode= new Node(data);
         if (head==null){
             head=tail=newNode;
-            tail.next=null;
-            }else{
-                newNode.next=head; //pra adicionar um nó na esquerda, só preciso apontar o novo nó pra head
-                head=newNode; //e transformar esse novo nó na head
+        }else{
+            head.prev=newNode; 
+            newNode.next=head; 
+            head=newNode;
         }
         size++;
     }
 
-    public Object dequeue(){ 
+    public Object dequeue(){ //O(1)
         if (head == null) {
             return null;
         }
-        
         if (head == tail) {
             Object data = head.data;
             head = null;
@@ -52,35 +51,28 @@ public class Filal {
         }
         Object data = head.data;
         head = head.next;
+        head.prev = null;
         size--;
 
         return data;
     }
-
-    public Object dequeue_right(){
-    if (head == null) {
+    public Object dequeue_right(){ //O(1)
+    if(head == null){
         return null;
     }
     
     if (head == tail) {
-        Object data = head.data;
+        Object data = tail.data;
         head = null;
         tail = null;
         size--;
         return data;
     }
-    
-    Object data = tail.data;  
-    Node current = head;
-    
-    while (current.next != tail) {
-        current = current.next;
-    }
-    
-    current.next = null;  
-    tail = current;
+    Object data = tail.data;
+    tail = tail.prev; 
+    tail.next = null;      
     size--;
-    
+
     return data;
 }
 
@@ -100,24 +92,25 @@ public class Filal {
          }
 
     public static void main(String[] args) {
-        Filal list = new Filal();
+        DequeLDL list = new DequeLDL();
           
-        list.display();
         
+
         list.enqueue(9);
         list.enqueue(5);
-        list.enqueue(3);
-        list.enqueue(4);
+        list.enqueue_behind(3);
+        list.display();
+        list.dequeue();
+        System.out.println("prev do head: " + list.head.prev);
+        System.out.println("next do tail: " + list.tail.next);
+        
+        
+        System.out.println("Tamanho da fila: " + list.size);
         
         list.display();
-        
-       
-        Object removido = list.dequeue();
-        System.out.println("Elemento removido da esquerda: " + removido);
-        System.out.println("Tamanho da fila: " + list.size);
-        System.out.println("a cauda eh:" + list.tail.data);
-        
+        list.dequeue_right();
         list.display();
     }
+    }
 
-}
+
