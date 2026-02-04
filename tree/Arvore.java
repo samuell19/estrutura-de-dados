@@ -10,7 +10,7 @@ public class Arvore {
         No pai; // Slide 23 menciona explicitamente o "Nó pai"
 
         public No(int chave) {
-            this.chave = chave;
+            this.chave = chave; //chave é tipo o valor do nó atual
             this.esquerda = null;
             this.direita = null;
             this.pai = null;
@@ -98,15 +98,17 @@ public class Arvore {
     private No removerRecursivo(No v, int k) {
         if (v == null) return null;
 
+        //isso aqui eh pra procurar
         if (k < v.chave) {
             v.esquerda = removerRecursivo(v.esquerda, k);
         } else if (k > v.chave) {
             v.direita = removerRecursivo(v.direita, k);
         } else {
             // Encontrou o nó a ser removido
-
+            //quando achar, cai no else e mata
             // Caso 1: Nó folha ou apenas 1 filho
-            if (v.esquerda == null) return v.direita;
+            if (v.esquerda == null) return v.direita; //se forem folhas isolados morrem aqui, se tiverem um filho, retorna o filho da eesquerda ou da direita
+            //e nesse primeiro if, se v.esquerda for null, retorna a direita que se for null tbm, morre ja que eh uma folha
             if (v.direita == null) return v.esquerda;
 
             // Caso 2 (Slide 30): Nó tem 2 filhos.
@@ -120,7 +122,7 @@ public class Arvore {
     }
 
     private No encontrarMinimo(No v) {
-        while (v.esquerda != null) {
+        while (v.esquerda != null) { //vou indo pra esquerda até achar o menor
             v = v.esquerda;
         }
         return v;
