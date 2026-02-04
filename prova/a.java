@@ -1,3 +1,4 @@
+//merge dee arvores
 public Arvbin uniaoArv(arvbin A, arvbin B){
     percorrerEInserir(B.getRaiz(), A);
     return A
@@ -24,7 +25,22 @@ private percorrerEInserir(No node, arvbin destino){
     }
 }
 
-private
+//impar sem contador
+public No achaNóDoMeio() {
+    // Começamos no primeiro nó real (após o sentinela de início)
+    No lento = inicio.getProximo();
+    No rapido = inicio.getProximo();
+
+    // Enquanto o rápido não atingir o sentinela de fim
+    // Verificamos o próximo e o próximo do próximo
+    while (rapido != fim && rapido.getProximo() != fim) {
+        lento = lento.getProximo();           // Anda 1 casa
+        rapido = rapido.getProximo().getProximo(); // Anda 2 casas
+    }
+
+    // Quando o loop acaba, o lento está no meio certinho
+    return lento;
+}
 
 
 private Integer ultimoValorVisitado = null;
@@ -34,34 +50,6 @@ public boolean éÁrvoreBináriaDePesquisa(ÁrvBin A) {
     return validaRecursivo(A.getRaiz());
 }
 
-private boolean validaRecursivo(No no) {
-    if (no == null) return true; // Nó vazio é sempre válido
-
-    // 1. Vai tudo para a esquerda
-    if (!validaRecursivo(no.getEsq())) return false;
-
-    // 2. Verifica a Raiz atual (Lógica do Dicionário)
-    // Se o valor atual não for maior que o anterior, quebrou a regra
-    if (ultimoValorVisitado != null && no.getChave() <= ultimoValorVisitado) {
-        return false;
-    }
-    ultimoValorVisitado = no.getChave(); // Atualiza o "ponteiro" de comparação
-
-    // 3. Vai para a direita
-    return validaRecursivo(no.getDir());
-}
-
-private fodase fodase(arv a, arv b){
-    percorrerEInseri(b.getRaiz, a)
-    return A
-}
-private percorrerEInseri(Node no, destino){
-    if no!=null{
-        percorrerEInseri(no.getDir(), destino)
-        destino.inserir(no.getChave())
-        percorrerEInseri(no.getEsq(), destino)
-    }
-}
 
 
 
